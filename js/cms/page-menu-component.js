@@ -15,6 +15,6 @@ const PageMenuComponent = defineComponent({
     }
   },
   template: `<ul>
-    <li v-for="page in pages" v-on:click="loadPage(page.path)"> {{ page.name }} </li>
+    <li v-for="page in pages"> <button v-on:click="loadPage(page.path)"> {{ page.name }} </button> </li>
   </ul>`
 })
