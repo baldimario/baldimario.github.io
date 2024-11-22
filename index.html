@@ -1,7 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<body>
-<h1>Hello Index :)</h1>
-<p><a href="https://github.com/geek0x90">geek0x90</a></p>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script  src="js/github-cms.js"></script>
+    </head>
+    <body>
+        <div id="app">{{ message }}</div>
+
+        <script>
+            const config = {
+                blog: {
+                    title: 'Baldi Mario Github CMS Blog'
+                },
+                github: {
+                    username: 'baldimario',
+                    repository: 'baldimario.github.io',
+                    branch: 'master',
+                    root: 'cms'
+                }
+            }
+
+            const ghfs = new GithubFileSystem(config)
+        </script>
+
+        <script src="js/cms/main.js"></script>
+        <script src="js/cms/page-menu-component.js"></script>
+        <script src="js/cms/page-component.js"></script>
+        <script src="js/cms/app.js"></script>
+    </body>
 </html>
