@@ -8,12 +8,11 @@ const PageComponent = defineComponent({
     page_path: {
       handler(new_value) {
         ghfs.cat(new_value).then((data) => {
-          this.content = data
+          this.content = marked.parse(data)
         })
       }
     }
   },
-  template: `<div>
-    {{ content }}
+  template: `<div v-html="content">
   </div>`
 })
