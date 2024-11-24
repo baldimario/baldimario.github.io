@@ -12,14 +12,20 @@ const PageMenuComponent = defineComponent({
   methods: {
     loadPage(page_path) {
       this.$emit('loadPage', page_path)
+    },
+    formatMdFileName(filename) {
+      let newname = filename.replace(/([A-Z])/g, ' $1').trim().replace('.md', '');
+      return newname.charAt(0).toUpperCase() + newname.slice(1);
     }
   },
-  template: `<ul style="padding: 0">
-    <li v-for="page in pages" style="display: inline; margin-right: 10px; list-pagina">
-      <button
-      v-on:click="loadPage(page.path)">
-        {{ page.name }}
-      </button>
+  template: `
+  <ul class="navbar-nav flex-column text-start">
+    <li class="nav-item">
+      <a class="nav-link active" v-on:click="loadPage('')"><i class="fas fa-home fa-fw me-2"></i>Blog Home <span class="sr-only">(current)</span></a>
     </li>
-  </ul>`
+    <li v-for="page in pages" class="nav-item" v-for="page in pages">
+      <a class="nav-link" v-on:click="loadPage(page.path)"><i class="fas fa-bookmark fa-fw me-2"></i>{{ formatMdFileName(page.name) }}</a>
+    </li>
+  </ul>
+  `
 })
