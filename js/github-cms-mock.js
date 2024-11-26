@@ -6,8 +6,9 @@ var env = {
 }
 
 var GithubFileSystem = (function () {
-    function GithubFileSystem(config) {
+    function GithubFileSystem(config, cache=null) {
       this._config = config;
+      this.cache = cache || new Cache('gitcms', 10)
     }
 
     function decodeBase64( string ) {
@@ -38,8 +39,13 @@ var GithubFileSystem = (function () {
     }
 
     async function ls(directory, regexp = null) {
+      let key = directory + ( regexp ? ':' + regexp.toString() : '')
+      let response = this.cache.get(key)
+      if (response !== null) return response
+      console.log('not cached')
+
       if (directory == 'pages') {
-        return [
+        response = [
           {
             "name": "about.md",
             "path": "cms/pages/about.md",
@@ -107,7 +113,7 @@ var GithubFileSystem = (function () {
         ]
       }
       else if(directory == 'posts') {
-        return [
+        response = [
           {
             "name": "pythonDomainDrivenDesign.md",
             "path": "cms/posts/pythonDomainDrivenDesign.md",
@@ -126,11 +132,18 @@ var GithubFileSystem = (function () {
           }
         ]
       }
+
+      this.cache.set(key, response)
+      return response
     }
 
     async function cat(path) {
+      let response = this.cache.get(path)
+      if (response !== null) return response
+      console.log('not cached')
+
       if (path == 'cms/pages/about.md') {
-        return `
+        response = `
 # About Us
 
 ## Who We Are
@@ -158,13 +171,13 @@ Sed at risus quam. Nullam tincidunt, libero non posuere consequat, orci erat pel
 - Praesent malesuada tincidunt libero, a facilisis magna fringilla quis.
 
 ## Join Us
-Vestibulum tristique, velit non efficitur eleifend, justo odio condimentum metus, at ultricies sapien velit quis mauris. Nunc sed orci ac eros auctor convallis. Curabitur fringilla tempus ligula vel cursus. 
+Vestibulum tristique, velit non efficitur eleifend, justo odio condimentum metus, at ultricies sapien velit quis mauris. Nunc sed orci ac eros auctor convallis. Curabitur fringilla tempus ligula vel cursus.
 
 We'd love to have you on this journey with us!
         `
       }
       else if(path == 'cms/pages/contact.md') {
-        return `
+        response = `
 # Contact Us
 
 ## Get in Touch
@@ -203,7 +216,7 @@ Name: __________
         `
       }
       else if(path == 'cms/pages/projects.md') {
-        return `
+        response = `
 # Projects
 
 ## Our Work
@@ -262,7 +275,7 @@ We’re always looking for exciting new challenges and partners. If you’d like
         `
       }
       else if(path == 'cms/pages/curriculumVitae.md') {
-        return `
+        response = `
 # Curriculum Vitae
 
 ## Personal Information
@@ -340,7 +353,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id massa nec lect
         `
       }
       else if(path == 'cms/posts/pythonDomainDrivenDesign.md') {
-        return `
+        response = `
 ---
 {
   "title": "Python Domain Driven Design :D",
@@ -384,6 +397,9 @@ Python’s flexibility, readability, and rich ecosystem make it a great fit for 
 The **Domain Layer** models the business logic using entities, value objects, and domain services.
         `
       }
+
+      this.cache.set(path, response)
+      return response
     }
 
     GithubFileSystem.prototype.ls = async function (directory, regexp = null) {

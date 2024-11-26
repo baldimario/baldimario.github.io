@@ -6,8 +6,9 @@ var env = {
 }
 
 var GithubFileSystem = (function () {
-    function GithubFileSystem(config) {
+    function GithubFileSystem(config, cache=null) {
       this._config = config;
+      this.cache = cache || new Cache('gitcms', 86400)
     }
 
     function decodeBase64( string ) {
@@ -38,7 +39,11 @@ var GithubFileSystem = (function () {
     }
 
     async function ls(directory, regexp = null) {
-        return await fetch(getApiUrl(directory))
+        let key = directory + ( regexp ? ':' + regexp.toString() : '')
+        let response = this.cache.get(key)
+        if (response) return response
+
+        response = await fetch(getApiUrl(directory))
         .then(response => {
           if (!response.ok) {
             throw new Error(response.statusText);
@@ -47,10 +52,16 @@ var GithubFileSystem = (function () {
         })
         .then(data => regexp ? data.filter(item => item['name'].match(regexp)) : data)
         .catch(error => console.error('Error:', error));
+
+        this.cache.set(key, response)
+        return response
     }
 
     async function cat(path) {
-        return await fetch(getRawUrl(path))
+        let response = this.cache.get(path)
+        if (response) return response
+
+        response = await fetch(getRawUrl(path))
         .then(response => {
           if (!response.ok) {
             throw new Error(response.statusText);
@@ -59,6 +70,9 @@ var GithubFileSystem = (function () {
         })
         .then(data => data['encoding'] == 'base64' ? decodeBase64(data['content']) : null)
         .catch(error => console.error('Error:', error));
+
+        this.cache.set(path, response)
+        return response
     }
 
     GithubFileSystem.prototype.ls = async function (directory, regexp = null) {

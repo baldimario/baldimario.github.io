@@ -4,8 +4,9 @@ it checks in an entry the time of the last cache update, if 24 hours is passed f
 empty the cache
 */
 var Cache = (function () {
-    function Cache(prefix) {
+    function Cache(prefix, lifetime = 86400) {
         this.prefix = prefix
+        this.lifetime = lifetime
     }
 
     /* return the value associated with the key from localstorage */
@@ -13,7 +14,7 @@ var Cache = (function () {
         var storedValue = localStorage.getItem(`${this.prefix}_${key}`);
         if (storedValue) {
             var storedTime = localStorage.getItem(`${this.prefix}_${key}_time`);
-            if (storedTime && (Date.now() - storedTime) / 1000 / 60 / 60 / 24 >= 1) {
+            if (storedTime && (Date.now() - storedTime) / 1000 >= this.lifetime) {
                 localStorage.removeItem(`${this.prefix}_${key}`);
                 localStorage.removeItem(`${this.prefix}_${key}_time`);
                 return null;
@@ -37,16 +38,16 @@ var Cache = (function () {
         return true;
     }
 
-    GithubFileSystem.prototype.get = async function (key) {
-        return await get.call(this, key);
+    Cache.prototype.get = function (key) {
+        return get.call(this, key);
     }
 
-    GithubFileSystem.prototype.set = async function (key, value) {
-        return await set.call(this, key, value);
+    Cache.prototype.set = function (key, value) {
+        return set.call(this, key, value);
     }
 
-    GithubFileSystem.prototype.del = async function (key) {
-        return await del.call(this, key);
+    Cache.prototype.del = function (key) {
+        return del.call(this, key);
     }
 
     return Cache;

@@ -1,0 +1,33 @@
+<style>
+html {
+  background: black;
+}
+</style>
+<script src="js/cache.js"></script>
+<script src="js/github-cms-mock.js"></script>
+<script>
+  const config = {
+      blog: {
+          title: 'Baldi Mario Github CMS Blog'
+      },
+      github: {
+          username: 'baldimario',
+          repository: 'baldimario.github.io',
+          branch: 'master',
+          root: 'cms'
+      }
+  }
+
+  let ghfs = new GithubFileSystem(config, new Cache('gitcms', 10))
+
+
+  ghfs.cat('cms/pages/about.md').then((data) => console.log(data))
+
+  /*
+  cache = new Cache('tmp', 86400);
+  cache.set('foo', 'bar');
+  alert(cache.get('foo'));
+  alert(cache.get('foo'));
+  */
+
+</script>
