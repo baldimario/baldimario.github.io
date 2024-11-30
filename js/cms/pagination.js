@@ -43,7 +43,7 @@ const Pagination = defineComponent({
             const lines = post_raw.split('\n');
             const start = lines.findIndex(line => line.trim().startsWith('---'));
             const end = lines.findIndex((line, index) => index > start && line.trim().startsWith('---'));
-            if (start !== 1) {
+            if (start !== 0) {
                 return {}
             } else {
                 const content = lines.slice(start+1, end).join('\n');
@@ -65,7 +65,7 @@ const Pagination = defineComponent({
         },
         getPostImage(post) {
             let metadata = this.getPostMetadata(post);
-            return metadata.image ? metadata.image : 'https://placehold.co/400x350/444/FFF?text=Image%20:D';
+            return metadata && metadata.image ? metadata.image : 'https://placehold.co/400x350/444/FFF?text=Image%20:D';
         },
         getPostAuthor(post) {
             let metadata = this.getPostMetadata(post);
@@ -74,6 +74,10 @@ const Pagination = defineComponent({
         getPostDescription(post) {
             let metadata = this.getPostMetadata(post);
             return metadata ? metadata['description'] : "";
+        },
+        getPostTitle(post) {
+            let metadata = this.getPostMetadata(post);
+            return metadata && metadata.title ? metadata.title : this.formatMdFileName(post.name)
         },
         getPostAge(post) {
             let metadata = this.getPostMetadata(post);
@@ -116,7 +120,7 @@ const Pagination = defineComponent({
                 <img class="img-fluid post-thumb" :src="getPostImage(post)" alt="image">
             </div>
             <div class="col">
-                <h3 class="title mb-1"><a class="text-link" href="blog-post.html">{{ formatMdFileName(post.name) }}</a></h3>
+                <h3 class="title mb-1"><a class="text-link" v-on:click="loadPost(post.path)">{{ getPostTitle(post) }}</a></h3>
                 <div class="meta mb-1">
                     <span class="date">Published {{ getPostAge(post) }}</span>
                     <span class="time">{{ getReadingTimeInMinutes(post) }} minutes</span>

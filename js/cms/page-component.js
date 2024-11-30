@@ -30,7 +30,7 @@ const PageComponent = defineComponent({
         const lines = post_raw.split('\n');
         const start = lines.findIndex(line => line.trim().startsWith('---'));
         const end = lines.findIndex((line, index) => index > start && line.trim().startsWith('---'));
-        if (start !== 1) {
+        if (start !== 0) {
             return {}
         } else {
             const content = lines.slice(start+1, end).join('\n');
@@ -43,7 +43,7 @@ const PageComponent = defineComponent({
         const lines = post_raw.split('\n');
         const start = lines.findIndex(line => line.trim().startsWith('---'));
         const end = lines.findIndex((line, index) => index > start && line.trim().startsWith('---'));
-        if (start !== 1) {
+        if (start !== 0) {
             return lines.join('\n')
         } else {
             const content = lines.slice(end+1).join('\n');
@@ -57,7 +57,7 @@ const PageComponent = defineComponent({
     },
     getPostImage() {
         let metadata = this.getPostMetadata();
-        return metadata ? metadata['image'] : "https://placehold.co/400x350/444/FFF?text=Image%20:D";
+        return metadata && metadata.image ? metadata.image : "https://placehold.co/400x350/444/FFF?text=Image%20:D";
     },
     getPostAuthor() {
         let metadata = this.getPostMetadata();
