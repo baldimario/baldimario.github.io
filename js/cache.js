@@ -1,8 +1,3 @@
-/*
-cache that uses localstorage and save in a prefixed entry the state of the application
-it checks in an entry the time of the last cache update, if 24 hours is passed from that time
-empty the cache
-*/
 var Cache = (function () {
     function Cache(prefix, lifetime = 86400) {
         this.prefix = prefix
@@ -19,14 +14,15 @@ var Cache = (function () {
                 localStorage.removeItem(`${this.prefix}_${key}_time`);
                 return null;
             }
-            return storedValue;
+            return JSON.parse(storedValue);
         }
         return null;
     }
 
     /* set the key to value and save the time of the last cache update */
     function set(key, value) {
-        localStorage.setItem(`${this.prefix}_${key}`, value);
+        let jsonValue = JSON.stringify(value)
+        localStorage.setItem(`${this.prefix}_${key}`, jsonValue);
         localStorage.setItem(`${this.prefix}_${key}_time`, Date.now());
         return value;
     }

@@ -65,7 +65,7 @@ const Pagination = defineComponent({
         },
         getPostImage(post) {
             let metadata = this.getPostMetadata(post);
-            return metadata ? metadata['image'] : 'https://placehold.co/400x350/444/FFF?text=Image%20:D';
+            return metadata.image ? metadata.image : 'https://placehold.co/400x350/444/FFF?text=Image%20:D';
         },
         getPostAuthor(post) {
             let metadata = this.getPostMetadata(post);
