@@ -14,6 +14,15 @@ const Pagination = defineComponent({
         ghfs.ls('posts', /.*\.md$/g).then((data) => {
             this.posts = data
 
+            this.posts.sort((a, b) => {
+                const dateA = a.name.split('-').slice(0, 3).join('-');
+                const dateB = b.name.split('-').slice(0, 3).join('-');
+                if (/^[0-9\-]+$/.test(dateA) && /^\[0-9\-]$/.test(dateB)) {
+                    return dateB.localeCompare(dateA);
+                }
+                return dateA.localeCompare(dateB);
+            });
+
             for(post of this.posts) {
                 if (!(post.path in this.post_map)) {
                     this.getPost(post)
