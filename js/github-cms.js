@@ -12,7 +12,7 @@ var GithubFileSystem = (function () {
     }
 
     function decodeBase64( string ) {
-      return decodeURIComponent(window.atob( string ));
+      return window.atob( string );
     }
 
     function getApiUrl(directory) {
@@ -68,7 +68,7 @@ var GithubFileSystem = (function () {
           }
           return response.json();
         })
-        .then(data => data['encoding'] == 'base64' ? decodeBase64(data['content']) : null)
+        .then(data => data['encoding'] == 'base64' ? decodeBase64(data['content'].replace("\n", "")) : null)
         .catch(error => console.error('Error:', error));
 
         this.cache.set(path, response)
