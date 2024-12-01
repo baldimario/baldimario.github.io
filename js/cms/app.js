@@ -35,12 +35,12 @@ createApp({
 
                             <div class="bio mb-3" style="text-align: left;">
                                 <ul class="bio-list">
-                                    <li>🌍  I'm based in Italy 🇮🇹</li>
-                                    <li>🖥️  See my portfolio at Linkedin</li>
-                                    <li>✉️  You can contact me at mariobaldi.py@gmail.com</li>
-                                    <li>🧠  I'm learning Rust 🦀</li>
-                                    <li>🤝  I'm open to collaborating on interesting projects</li>
-                                    <li>⚡  Open to conversations about tech, ideas, or just some fun, let’s connect!</li>
+                                    <li>🌍 I'm based in Italy 🇮🇹</li>
+                                    <li>🖥️ See my skills on <a href="https://www.linkedin.com/in/mario-baldi-1bb75077/">Linkedin</a></li>
+                                    <li>✉️  You can send me an <a href="mailto:mariobaldi.py@gmail.com">mail</a></li>
+                                    <li>🧠 I'm learning Rust 🦀</li>
+                                    <li>🤝 I'm open to collaborations</li>
+                                    <li>⚡ I'm open to conversations about tech, ideas and more, let’s connect!</li>
                                 </ul>
                             </div><!--//bio-->
                             <ul class="social-list list-inline py-3 mx-auto">
@@ -56,7 +56,7 @@ createApp({
                         <PageMenuComponent @loadPage="loadPage"/>
 
                         <div class="my-2 my-md-3">
-                            <a class="btn btn-primary" href="https://themes.3rdwavemedia.com/" target="_blank">Get in Touch</a>
+                            <a class="btn btn-primary" href="mailto:mariobaldi.py@gmail.com" target="_blank">Get in Touch</a>
                         </div>
                     </div>
                 </nav>
