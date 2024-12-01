@@ -17,6 +17,14 @@ createApp({
         },
         loadPost(post_path) {
             this.page_path = post_path
+        },
+        toggleMenu() {
+          let navigation = document.getElementById('navigation')
+          if (navigation.classList.contains('show')) {
+            navigation.classList.remove('show')
+          } else {
+            navigation.classList.add('show')
+          }
         }
     },
     template: `
@@ -26,7 +34,7 @@ createApp({
 
                 <nav class="navbar navbar-expand-lg navbar-dark" >
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                        <span class="navbar-toggler-icon" v-on:click="toggleMenu()"></span>
                     </button>
 
                     <div id="navigation" class="collapse navbar-collapse flex-column" >
