@@ -139,28 +139,30 @@ const Pagination = defineComponent({
         }
     },
     template: `
-<div>
-    <div class="item mb-5" v-for="post in getPagePosts()">
-        <div class="row g-3 g-xl-0">
-            <div class="col-2 col-xl-3">
-                <img class="img-fluid post-thumb" :src="getPostImage(post)" alt="image">
-            </div>
-            <div class="col">
-                <h3 class="title mb-1"><a class="text-link" v-on:click="loadPost(post.path)">{{ getPostTitle(post) }}</a></h3>
-                <div class="meta mb-1">
-                    <span class="date">Published {{ getPostAge(post) }}</span>
-                    <span class="time">{{ getReadingTimeInMinutes(post) }} minutes</span>
-                    <span class="author" v-if="getPostAuthor(post)">{{ getPostAuthor(post) }}</span>
+<div style="flex-grow: 1; flex-basis: 100%; display: flex; flex-direction: column;">
+    <div style="flex-grow: 1; flex-basis: 100%;">
+        <div class="item mb-5" v-for="post in getPagePosts()">
+            <div class="row g-3 g-xl-0">
+                <div class="col-2 col-xl-3">
+                    <img class="img-fluid post-thumb" :src="getPostImage(post)" alt="image">
                 </div>
-                <div class="intro" v-if="canGetPostRaw(post)">
-                    {{ getPostDescription(post) }}
-                </div>
-                <a class="text-link" v-on:click="loadPost(post.path)">Read more &rarr;</a>
-            </div><!--//col-->
-        </div><!--//row-->
-    </div><!--//item-->
+                <div class="col">
+                    <h3 class="title mb-1"><a class="text-link" v-on:click="loadPost(post.path)">{{ getPostTitle(post) }}</a></h3>
+                    <div class="meta mb-1">
+                        <span class="date">Published {{ getPostAge(post) }}</span>
+                        <span class="time">{{ getReadingTimeInMinutes(post) }} minutes</span>
+                        <span class="author" v-if="getPostAuthor(post)">{{ getPostAuthor(post) }}</span>
+                    </div>
+                    <div class="intro" v-if="canGetPostRaw(post)">
+                        {{ getPostDescription(post) }}
+                    </div>
+                    <a class="text-link" v-on:click="loadPost(post.path)">Read more &rarr;</a>
+                </div><!--//col-->
+            </div><!--//row-->
+        </div><!--//item-->
+    </div>
 
-    <nav class="blog-nav nav nav-justified my-5">
+    <nav class="blog-nav nav nav-justified my-5" style="flex-basis: 0;">
         <a class="nav-link-next nav-item nav-link rounded" v-if="page > 0" v-on:click="previousPage()">Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
         <a class="nav-link-next nav-item nav-link rounded" v-if="page < last_page" v-on:click="nextPage()">Next<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
     </nav>

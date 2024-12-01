@@ -62,8 +62,8 @@ createApp({
                 </nav>
             </header>
 
-            <div class="main-wrapper">
-                <section class="cta-section theme-bg-light py-5" style="background-color: rgb(27, 29, 30) !important">
+            <div class="main-wrapper" style="display: flex; flex-direction: column; min-height: 100vh;">
+                <section class="cta-section theme-bg-light py-5" style="background-color: rgb(27, 29, 30) !important; flex-basis: 0;">
                     <div class="container text-center single-col-max-width">
                         <h2 class="heading text-white">Mario Baldi's Developer Blog</h2>
                         <div class="intro text-light">I write code... and the bugs write themselves.</div>
@@ -80,13 +80,13 @@ createApp({
                     </div><!--//container-->
                 </section>
 
-                <section class="blog-list px-3 py-5 p-md-5">
-                    <div class="container single-col-max-width">
+                <section class="blog-list px-3 py-5 p-md-5" style="flex-grow: 1; flex-basis: 100%; display: flex; flex-direction: column;">
+                    <div class="container single-col-max-width" style="flex-grow: 1; flex-basis: 100%; display: flex; flex-direction: column;">
                         <PageComponent :page_path="page_path" @loadPost="loadPost"/>
                     </div>
                 </section>
 
-                <footer class="footer text-center py-2 theme-bg-dark">
+                <footer class="footer text-center theme-bg-dark" style="flex-basis: 0;">
                     <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
                     <small class="copyright">Powered by <a href="https://github.com/baldimario/github-cms" target="_blank">Github CMS</a> project</small>
                 </footer>

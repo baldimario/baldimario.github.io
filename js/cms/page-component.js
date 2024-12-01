@@ -109,8 +109,8 @@ const PageComponent = defineComponent({
       }
     }
   },
-  template: `<div>
-    <div v-if="page_path">
+  template: `<div style="flex-grow: 1; flex-basis: 100%; display: flex; flex-direction: column;">
+    <div v-if="page_path" style="flex-grow: 1; flex-basis: 100%; display: flex; flex-direction: column;">
       <div class="meta mb-1">
         <span class="date">Published {{ getPostAge() }}</span>
         <span class="time">{{ getReadingTimeInMinutes() }} minutes</span>
@@ -119,7 +119,7 @@ const PageComponent = defineComponent({
       <div v-html="getPostContentRendered()">
       </div>
     </div>
-    <div v-else>
+    <div v-else style="flex-grow: 1; flex-basis: 100%; display: flex; flex-direction: column;">
       <Pagination @loadPost="loadPost"/>
     </div>
   </div>`
