@@ -5,14 +5,21 @@ const Pagination = defineComponent({
     setup() {
         const posts = ref([])
         const post_map = ref({})
+        const page = ref(0)
+        const post_per_page = 5
+        const last_page = ref(0)
         return {
             posts,
-            post_map
+            post_map,
+            page,
+            post_per_page,
+            last_page
         }
     },
     mounted() {
         ghfs.ls('posts', /.*\.md$/g).then((data) => {
             this.posts = data
+            this.last_page = Math.floor(data.length / this.post_per_page)
 
             this.posts.sort((a, b) => {
                 const dateA = a.name.split('-').slice(0, 3).join('-');
@@ -121,10 +128,19 @@ const Pagination = defineComponent({
             const readingTime = Math.ceil(words / 150);
             return readingTime;
         },
+        getPagePosts() {
+            return this.posts.slice(this.page * this.post_per_page, (this.page + 1) * this.post_per_page);
+        },
+        nextPage() {
+            this.page++;
+        },
+        previousPage() {
+            this.page--;
+        }
     },
     template: `
 <div>
-    <div class="item mb-5" v-for="post in posts">
+    <div class="item mb-5" v-for="post in getPagePosts()">
         <div class="row g-3 g-xl-0">
             <div class="col-2 col-xl-3">
                 <img class="img-fluid post-thumb" :src="getPostImage(post)" alt="image">
@@ -145,8 +161,8 @@ const Pagination = defineComponent({
     </div><!--//item-->
 
     <nav class="blog-nav nav nav-justified my-5">
-    <a class="nav-link-prev nav-item nav-link d-none rounded-left" href="#">Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
-    <a class="nav-link-next nav-item nav-link rounded" href="#">Next<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
+        <a class="nav-link-next nav-item nav-link rounded" v-if="page > 0" v-on:click="previousPage()">Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
+        <a class="nav-link-next nav-item nav-link rounded" v-if="page < last_page" v-on:click="nextPage()">Next<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
     </nav>
 </div>
 `
