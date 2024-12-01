@@ -17,10 +17,11 @@ const Pagination = defineComponent({
             this.posts.sort((a, b) => {
                 const dateA = a.name.split('-').slice(0, 3).join('-');
                 const dateB = b.name.split('-').slice(0, 3).join('-');
-                if (/^[0-9\-]+$/.test(dateA) && /^\[0-9\-]$/.test(dateB)) {
+
+                if (/^[0-9\-]+$/.test(dateA) && /^[0-9\-]+$/.test(dateB)) {
                     return dateB.localeCompare(dateA);
                 }
-                return dateA.localeCompare(dateB);
+                return 1;
             });
 
             for(post of this.posts) {
