@@ -25,15 +25,27 @@ createApp({
           } else {
             navigation.classList.add('show')
           }
+        },
+        closeMenu() {
+          let navigation = document.getElementById('navigation')
+          navigation.classList.remove('show')
+        },
+        goHome() {
+            this.closeMenu()
+            this.loadPage('')
+        },
+        openMenu() {
+          let navigation = document.getElementById('navigation')
+          navigation.classList.add('show')
         }
     },
     template: `
         <div>
             <header class="header text-center" style="background: rgb(44, 134, 78)">
-                <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" href="index.html">Mario Baldi's Blog</a></h1>
+                <h1 class="blog-name pt-lg-4 mb-0" style="z-index: 100; margin-left: 0px; position"><a class="no-text-decoration" v-on:click="goHome()">Mario Baldi's Blog</a></h1>
 
-                <nav class="navbar navbar-expand-lg navbar-dark" >
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <button class="navbar-toggler" style="z-index: 200;" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon" v-on:click="toggleMenu()"></span>
                     </button>
 
