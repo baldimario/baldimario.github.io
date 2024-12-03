@@ -21,15 +21,24 @@ const Pagination = defineComponent({
             this.posts = data
             this.last_page = Math.floor(data.length / this.post_per_page)
 
-            this.posts.sort((a, b) => {
-                const dateA = a.name.split('-').slice(0, 3).join('-');
-                const dateB = b.name.split('-').slice(0, 3).join('-');
-
-                if (/^[0-9\-]+$/.test(dateA) && /^[0-9\-]+$/.test(dateB)) {
-                    return dateB.localeCompare(dateA);
+            for (let i = 0; i < this.posts.length; i++) {
+                for (let j = i + 1; j < this.posts.length; j++) {
+                    const dateA = this.posts[i].name.split('-').slice(0, 3).join('-');
+                    const dateB = this.posts[j].name.split('-').slice(0, 3).join('-');
+                    if (/^[0-9\-]+$/.test(dateA) && /^[0-9\-]+$/.test(dateB)) {
+                        if (dateB.localeCompare(dateA) > 0) {
+                            let temp = this.posts[i];
+                            this.posts[i] = this.posts[j];
+                            this.posts[j] = temp;
+                        }
+                    }
+                    else {
+                      let temp = this.posts[i];
+                      this.posts[i] = this.posts[j];
+                      this.posts[j] = temp;
+                    }
                 }
-                return 1;
-            });
+            }
 
             for(post of this.posts) {
                 if (!(post.path in this.post_map)) {
@@ -129,7 +138,11 @@ const Pagination = defineComponent({
             return readingTime;
         },
         getPagePosts() {
-            return this.posts.slice(this.page * this.post_per_page, (this.page + 1) * this.post_per_page);
+            let result = [];
+            for (let i = this.page * this.post_per_page; i < (this.page + 1) * this.post_per_page && i < this.posts.length; i++) {
+                result.push(this.posts[i]);
+            }
+            return result;
         },
         nextPage() {
             this.page++;
