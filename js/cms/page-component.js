@@ -1,6 +1,5 @@
 const PageComponent = defineComponent({
   props: ["page_path"],
-  emits: ['loadPost'],
   components: {
     Pagination
   },
@@ -9,9 +8,6 @@ const PageComponent = defineComponent({
     return { post }
   },
   methods: {
-    loadPost(post_path) {
-      this.$emit('loadPost', post_path)
-    },
     formatMdFileName(filename) {
         let newname = filename.replace(/([A-Z])/g, ' $1').trim().replace('.md', '');
         return newname.charAt(0).toUpperCase() + newname.slice(1);
@@ -120,7 +116,7 @@ const PageComponent = defineComponent({
       </div>
     </div>
     <div v-else style="flex-grow: 1; flex-basis: 100%; display: flex; flex-direction: column;">
-      <Pagination @loadPost="loadPost"/>
+      <Pagination/>
     </div>
   </div>`
 })

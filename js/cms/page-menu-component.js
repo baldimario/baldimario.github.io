@@ -1,5 +1,4 @@
 const PageMenuComponent = defineComponent({
-  emits: ["loadPage"],
   setup() {
     const pages = ref([])
     return { pages }
@@ -11,7 +10,7 @@ const PageMenuComponent = defineComponent({
   },
   methods: {
     loadPage(page_path) {
-      this.$emit('loadPage', page_path)
+        location.hash = page_path.replace(config.github.root + '/', '')
     },
     formatMdFileName(filename) {
       let newname = filename.replace(/([A-Z])/g, ' $1').trim().replace('.md', '');

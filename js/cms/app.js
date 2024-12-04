@@ -1,3 +1,8 @@
+const currentPath = ref(window.location.hash)
+window.addEventListener('hashchange', () => {
+  currentPath.value = window.location.hash
+})
+
 createApp({
     components: {
         PageMenuComponent,
@@ -8,16 +13,24 @@ createApp({
         const page_path = ref('')
         return {
             message,
-            page_path
+            page_path,
+            currentPath
+        }
+    },
+    computed: {
+        currentView() {
+            return this.currentPath
+        }
+    },
+    watch: {
+        currentPath(newVal, oldVal) {
+            let new_page = newVal.replace('#', config.github.root + '/')
+            console.log('old page: ', this.page_path)
+            console.log('new page: ', new_page)
+            this.page_path = new_page
         }
     },
     methods: {
-        loadPage(page_path) {
-            this.page_path = page_path
-        },
-        loadPost(post_path) {
-            this.page_path = post_path
-        },
         toggleMenu() {
           let navigation = document.getElementById('navigation')
           if (navigation.classList.contains('show')) {
@@ -32,7 +45,6 @@ createApp({
         },
         goHome() {
             this.closeMenu()
-            this.loadPage('')
         },
         openMenu() {
           let navigation = document.getElementById('navigation')
@@ -42,11 +54,11 @@ createApp({
     template: `
         <div>
             <header class="header text-center" style="background: rgb(44, 134, 78)">
-                <h1 class="blog-name pt-lg-4 mb-0" style="z-index: 100; margin-left: 0px; position"><a class="no-text-decoration" v-on:click="goHome()">Mario Baldi's Blog</a></h1>
+                <h1 class="blog-name pt-lg-4 mb-0" style="z-index: 100; margin-left: 0px; position"><a class="no-text-decoration" v-on:click="goHome">Mario Baldi's Blog</a></h1>
 
                 <nav class="navbar navbar-expand-lg navbar-dark">
                     <button class="navbar-toggler" style="z-index: 200;" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon" v-on:click="toggleMenu()"></span>
+                        <span class="navbar-toggler-icon" v-on:click="toggleMenu"></span>
                     </button>
 
                     <div id="navigation" class="collapse navbar-collapse flex-column" >
@@ -73,7 +85,7 @@ createApp({
                             <hr>
                         </div><!--//profile-section-->
 
-                        <PageMenuComponent @loadPage="loadPage"/>
+                        <PageMenuComponent/>
 
                         <div class="my-2 my-md-3">
                             <a class="btn btn-primary" href="mailto:mariobaldi.py@gmail.com" target="_blank">Get in Touch</a>
@@ -102,12 +114,11 @@ createApp({
 
                 <section class="blog-list px-3 py-5 p-md-5" style="flex-grow: 1; flex-basis: 100%; display: flex; flex-direction: column;">
                     <div class="container single-col-max-width" style="flex-grow: 1; flex-basis: 100%; display: flex; flex-direction: column;">
-                        <PageComponent :page_path="page_path" @loadPost="loadPost"/>
+                        <PageComponent :page_path="page_path"/>
                     </div>
                 </section>
 
                 <footer class="footer text-center theme-bg-dark" style="flex-basis: 0;">
-                    <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
                     <small class="copyright">Powered by <a href="https://github.com/baldimario/github-cms" target="_blank">Github CMS</a> project</small>
                 </footer>
             </div><!--//main-wrapper-->

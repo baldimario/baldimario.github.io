@@ -49,7 +49,7 @@ const Pagination = defineComponent({
     },
     methods: {
         loadPost(post_path) {
-            this.$emit('loadPost', post_path)
+            location.hash = post_path.replace(config.github.root + '/', '')
         },
         formatMdFileName(filename) {
             let newname = filename.replace(/([A-Z])/g, ' $1').trim().replace('.md', '');
@@ -157,7 +157,7 @@ const Pagination = defineComponent({
         <div class="item mb-5" v-for="post in getPagePosts()">
             <div class="row g-3 g-xl-0">
                 <div class="col-2 col-xl-3">
-                    <img class="img-fluid post-thumb" :src="getPostImage(post)" alt="image">
+                    <img v-on:click="loadPost(post.path)" class="img-fluid post-thumb" :src="getPostImage(post)" alt="image">
                 </div>
                 <div class="col">
                     <h3 class="title mb-1"><a class="text-link" v-on:click="loadPost(post.path)">{{ getPostTitle(post) }}</a></h3>
