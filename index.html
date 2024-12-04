@@ -6,8 +6,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Blog Template">
-        <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+        <meta name="description" content="I write code... and the bugs write themselves.">
+        <meta name="author" content="Mario Baldi">
         <link rel="shortcut icon" href="favicon.ico">
 
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/js/all.min.js"></script>
@@ -61,6 +61,13 @@
 
         <script src="js/cache.js"></script>
         <script>
+            var meta = document.createElement('meta');
+            meta.setAttribute("property", "og:type");
+            meta.setAttribute("content", "article");
+            meta.setAttribute("property", "og:image");
+            meta.setAttribute("content", "https://avatars.githubusercontent.com/u/8032315?v=4");
+            document.getElementsByTagName('head')[0].appendChild(meta);
+
             const config = {
                 blog: {
                     title: 'Baldi Mario Github CMS Blog'
