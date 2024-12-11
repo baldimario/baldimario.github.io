@@ -8,20 +8,20 @@
 }
 ---
 
-# Welcome to My GitHub-Powered Blog! 
+# Welcome to My GitHub-Powered Blog!
 
-This blog is a little unconventional: **the engine under the hood is Git!**  
+This blog is a little unconventional: **the engine under the hood is Git!**
 
-Using the **GitHub API**, the blog is powered directly by a GitHub repository. The content is extracted from specific files, and Markdown is rendered beautifully following some metadata and conventions I've set up.  
+Using the **GitHub API**, the blog is powered directly by a GitHub repository. The content is extracted from specific files, and Markdown is rendered beautifully following some metadata and conventions I've set up.
 
 ## How It Works
-- **Content Source**: The posts live as Markdown files in a GitHub repository.  
-- **Metadata**: Each post begins with a small JSON snippet that includes extra details like title, tags, and date.  
-- **Rendering**: The blog fetches these files dynamically, processes them, and displays them here.  
+- **Content Source**: The posts live as Markdown files in a GitHub repository.
+- **Metadata**: Each post begins with a small JSON snippet that includes extra details like title, tags, and date.
+- **Rendering**: The blog fetches these files dynamically, processes them, and displays them here.
 - **Caching**: For performance, a caching layer leverages your browser's `localStorage` to minimize API calls and make the blog snappier.
 
 ## Why GitHub as a CMS?
-This is an **experimental side project** called [GitHub CMS](https://github.com/baldimario/github-cms). My goal is to explore the possibilities of using GitHub as a simple and powerful backend for personal blogs and other lightweight CMS use cases.  
+This is an **experimental side project** called [GitHub CMS](https://github.com/baldimario/github-cms). My goal is to explore the possibilities of using GitHub as a simple and powerful backend for personal blogs and other lightweight CMS use cases.
 
 It's:
 - **Collaborative**: Anyone can contribute via pull requests!
@@ -77,7 +77,7 @@ This ensures your blog operates efficiently while keeping data fresh for your us
 With this setup, you’re ready to roll! Just push Markdown files to the cms folder, and the blog will dynamically fetch and render them.
 
 ## How to Post
-1. Create a Markdown file for your post.  
+1. Create a Markdown file for your post.
 2. Add a small JSON block at the top with details like:
    ```json
    {

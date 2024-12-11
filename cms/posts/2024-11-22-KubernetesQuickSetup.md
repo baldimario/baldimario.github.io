@@ -39,7 +39,7 @@ Add user, include into sudoers and set its password
 > passwd iworkon
 ```
 ### SSH certificates
-Create ssh key 
+Create ssh key
 ```sh
 > ssh-keygen
 ```
