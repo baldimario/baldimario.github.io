@@ -22,11 +22,14 @@ createApp({
             return this.currentPath
         }
     },
+    mounted() {
+        let new_page = currentPath.value.replace('#', config.github.root + '/')
+        console.log(new_page)
+        this.page_path = new_page
+    },
     watch: {
         currentPath(newVal, oldVal) {
             let new_page = newVal.replace('#', config.github.root + '/')
-            console.log('old page: ', this.page_path)
-            console.log('new page: ', new_page)
             this.page_path = new_page
         }
     },
