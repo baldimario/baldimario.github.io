@@ -70,7 +70,12 @@ createApp({
 
                             <div class="bio mb-3" style="text-align: left;">
                                 <ul class="bio-list">
-                                    <li>🌍 I'm based in Italy 🇮🇹</li>
+                                    <li>🧑‍💻💻  Software Engineer</li>
+                                    <li>🌍 Based in Italy 🇮🇹</li>
+                                    <li>🚀 Sideprojects starter</li>
+                                    <li>🛠️ Breaker of things</li>
+                                    <li>📟 CLI Enthusiast</li>
+                                    <li>🐧 FOSS lover</li>
                                     <li>🖥️ See my skills on <a href="https://www.linkedin.com/in/mario-baldi-1bb75077/">Linkedin</a></li>
                                     <li>✉️  You can send me an <a href="mailto:mariobaldi.py@gmail.com">mail</a></li>
                                     <li>🧠 I'm learning Rust 🦀</li>
