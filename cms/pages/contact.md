@@ -8,7 +8,7 @@ I'm Mario Baldi, a developer based in Italy. You can find my skills and experien
 I'm open to collaborations and conversations about tech, ideas, and more.
 
 ## Curriculum Vitae
-You can access my curriculum at: [Curriculum](https://raw.githubusercontent.com/baldimario/baldimario.github.io/refs/heads/master/assets/MarioBaldiCV24.pdf)
+You can access my curriculum at: [Curriculum](https://raw.githubusercontent.com/baldimario/baldimario.github.io/refs/heads/master/assets/MarioBaldiCV25.pdf)
 
 ## Email
 For general inquiries, send me an email:
