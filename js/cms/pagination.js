@@ -19,7 +19,7 @@ const Pagination = defineComponent({
     mounted() {
         ghfs.ls('posts', /.*\.md$/g).then((data) => {
             this.posts = data
-            this.last_page = Math.floor(data.length / this.post_per_page)
+            this.last_page = Math.floor((data.length - 1) / this.post_per_page)
 
             for (let i = 0; i < this.posts.length; i++) {
                 for (let j = i + 1; j < this.posts.length; j++) {
