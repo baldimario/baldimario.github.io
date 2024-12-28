@@ -260,3 +260,68 @@ And finally login in the docker registry
 ```sh
 docker login registry.iworkon.it:5000 -u iworkon.it -p PASSWORD
 ```
+#### Alternative Deployment instead of Pod
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker-registry
+  labels:
+    app: docker-registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-registry
+  template:
+    metadata:
+      labels:
+        app: docker-registry
+    spec:
+      containers:
+        - name: docker-registry
+          image: registry:2.6.2
+          volumeMounts:
+            - name: repo-vol
+              mountPath: "/var/lib/registry"
+            - name: certs-vol
+              mountPath: "/certs"
+              readOnly: true
+            - name: auth-vol
+              mountPath: "/auth"
+              readOnly: true
+          env:
+            - name: REGISTRY_AUTH
+              value: "htpasswd"
+            - name: REGISTRY_AUTH_HTPASSWD_REALM
+              value: "Registry Realm"
+            - name: REGISTRY_AUTH_HTPASSWD_PATH
+              value: "/auth/htpasswd"
+            - name: REGISTRY_HTTP_TLS_CERTIFICATE
+              value: "/certs/tls.crt"
+            - name: REGISTRY_HTTP_TLS_KEY
+              value: "/certs/tls.key"
+          ports:
+            - containerPort: 5000
+      volumes:
+        - name: repo-vol
+          persistentVolumeClaim:
+            claimName: docker-repo-pvc
+        - name: certs-vol
+          secret:
+            secretName: registry-certs
+        - name: auth-vol
+          secret:
+            secretName: registry-auth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: docker-registry
+spec:
+  selector:
+    app: docker-registry
+  ports:
+    - port: 5000
+      targetPort: 5000
+```
