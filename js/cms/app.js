@@ -67,7 +67,7 @@ createApp({
                     <div id="navigation" class="collapse navbar-collapse flex-column" >
                         <div class="profile-section pt-3 pt-lg-0">
                             <!--<img class="profile-image mb-3 rounded-circle mx-auto" src="https://avatars.githubusercontent.com/u/8032315?v=4" alt="image" >-->
-                            <img class="profile-image mb-3 rounded-circle mx-auto" src="https://github.com/baldimario/baldimario.github.io/blob/master/assets/logo-grey.png?raw=true" alt="image" >
+                            <img class="profile-image mb-3 rounded-circle mx-auto" src="https://github.com/baldimario/baldimario.github.io/blob/master/assets/logo-white.png?raw=true" alt="image" >
 
                             <div class="bio mb-3" style="text-align: left;">
                                 <ul class="bio-list">
