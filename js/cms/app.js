@@ -1,60 +1,60 @@
-const currentPath = ref(window.location.hash)
-window.addEventListener('hashchange', () => {
-  currentPath.value = window.location.hash
-})
+const currentPath = ref(window.location.hash);
+window.addEventListener("hashchange", () => {
+  currentPath.value = window.location.hash;
+});
 
 createApp({
-    components: {
-        PageMenuComponent,
-        PageComponent
+  components: {
+    PageMenuComponent,
+    PageComponent,
+  },
+  setup() {
+    const message = ref("Hello vue!");
+    const page_path = ref("");
+    return {
+      message,
+      page_path,
+      currentPath,
+    };
+  },
+  computed: {
+    currentView() {
+      return this.currentPath;
     },
-    setup() {
-        const message = ref('Hello vue!')
-        const page_path = ref('')
-        return {
-            message,
-            page_path,
-            currentPath
-        }
+  },
+  mounted() {
+    let new_page = currentPath.value.replace("#", config.github.root + "/");
+    console.log(new_page);
+    this.page_path = new_page;
+  },
+  watch: {
+    currentPath(newVal, oldVal) {
+      let new_page = newVal.replace("#", config.github.root + "/");
+      this.page_path = new_page;
     },
-    computed: {
-        currentView() {
-            return this.currentPath
-        }
+  },
+  methods: {
+    toggleMenu() {
+      let navigation = document.getElementById("navigation");
+      if (navigation.classList.contains("show")) {
+        navigation.classList.remove("show");
+      } else {
+        navigation.classList.add("show");
+      }
     },
-    mounted() {
-        let new_page = currentPath.value.replace('#', config.github.root + '/')
-        console.log(new_page)
-        this.page_path = new_page
+    closeMenu() {
+      let navigation = document.getElementById("navigation");
+      navigation.classList.remove("show");
     },
-    watch: {
-        currentPath(newVal, oldVal) {
-            let new_page = newVal.replace('#', config.github.root + '/')
-            this.page_path = new_page
-        }
+    goHome() {
+      this.closeMenu();
     },
-    methods: {
-        toggleMenu() {
-          let navigation = document.getElementById('navigation')
-          if (navigation.classList.contains('show')) {
-            navigation.classList.remove('show')
-          } else {
-            navigation.classList.add('show')
-          }
-        },
-        closeMenu() {
-          let navigation = document.getElementById('navigation')
-          navigation.classList.remove('show')
-        },
-        goHome() {
-            this.closeMenu()
-        },
-        openMenu() {
-          let navigation = document.getElementById('navigation')
-          navigation.classList.add('show')
-        }
+    openMenu() {
+      let navigation = document.getElementById("navigation");
+      navigation.classList.add("show");
     },
-    template: `
+  },
+  template: `
         <div>
             <header class="header text-center" style="background: rgb(44, 134, 78)">
                 <h1 class="blog-name pt-lg-4 mb-0" style="z-index: 100; margin-left: 0px; position"><a class="no-text-decoration" v-on:click="goHome">Mario Baldi's Blog</a></h1>
@@ -66,7 +66,8 @@ createApp({
 
                     <div id="navigation" class="collapse navbar-collapse flex-column" >
                         <div class="profile-section pt-3 pt-lg-0">
-                            <img class="profile-image mb-3 rounded-circle mx-auto" src="https://avatars.githubusercontent.com/u/8032315?v=4" alt="image" >
+                            <!--<img class="profile-image mb-3 rounded-circle mx-auto" src="https://avatars.githubusercontent.com/u/8032315?v=4" alt="image" >-->
+                            <img class="profile-image mb-3 rounded-circle mx-auto" src="https://github.com/baldimario/baldimario.github.io/blob/master/assets/logo-grey.png?raw=true" alt="image" >
 
                             <div class="bio mb-3" style="text-align: left;">
                                 <ul class="bio-list">
@@ -131,5 +132,5 @@ createApp({
                 </footer>
             </div><!--//main-wrapper-->
         </div>
-    `
-}).mount('#app')
+    `,
+}).mount("#app");
